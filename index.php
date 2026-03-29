@@ -1056,3 +1056,73 @@ func main() {
 	}
 	z01.PrintRune('\n')
 }
+
+ <!-- we are unique -->
+  func WeAreUnique(str1, str2 string) int {
+	// If both are empty, return -1
+	if str1 == "" && str2 == "" {
+		return -1
+	}
+
+	count := 0
+
+	// --- CHECK STR1 AGAINST STR2 ---
+	for i := 0; i < len(str1); i++ {
+		// Check if we've already processed this character in str1 (avoid duplicates)
+		isDuplicate := false
+		for prev := 0; prev < i; prev++ {
+			if str1[i] == str1[prev] {
+				isDuplicate = true
+				break
+			}
+		}
+		if isDuplicate {
+			continue
+		}
+
+		// Check if str1[i] exists in str2
+		foundInOther := false
+		for j := 0; j < len(str2); j++ {
+			if str1[i] == str2[j] {
+				foundInOther = true
+				break
+			}
+		}
+
+		// If it's NOT in the other string, it's unique!
+		if !foundInOther {
+			count++
+		}
+	}
+
+	// --- CHECK STR2 AGAINST STR1 ---
+	for i := 0; i < len(str2); i++ {
+		// Check if we've already processed this character in str2
+		isDuplicate := false
+		for prev := 0; prev < i; prev++ {
+			if str2[i] == str2[prev] {
+				isDuplicate = true
+				break
+			}
+		}
+		if isDuplicate {
+			continue
+		}
+
+		// Check if str2[i] exists in str1
+		foundInOther := false
+		for j := 0; j < len(str1); j++ {
+			if str2[i] == str1[j] {
+				foundInOther = true
+				break
+			}
+		}
+
+		// If it's NOT in the other string, it's unique!
+		if !foundInOther {
+			count++
+		}
+	}
+
+	return count
+}
