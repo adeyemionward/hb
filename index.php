@@ -1168,3 +1168,32 @@ func main() {
 	}
 	fmt.Println()
 }
+
+package piscine
+
+func CanJump(steps []uint) bool {
+	// 1. If the array is empty, return false per instructions
+	if len(steps) == 0 {
+		return false
+	}
+
+	// 2. Start at the first index
+	currentIndex := 0
+	lastIndex := len(steps) - 1
+
+	// 3. Keep jumping until we reach or pass the last index
+	for currentIndex < lastIndex {
+		jumpSize := int(steps[currentIndex])
+
+		// If we are told to jump 0 steps but haven't reached the end, we are stuck
+		if jumpSize == 0 {
+			return false
+		}
+
+		// Move forward by the EXACT number of steps
+		currentIndex += jumpSize
+	}
+
+	// 4. Check if we landed exactly on the last index
+	return currentIndex == lastIndex
+}
