@@ -969,3 +969,90 @@ func main() {
 	z01.PrintRune('\n')
 }
 // end union
+
+
+<!-- inter 1 -->
+ package main
+
+import (
+	"os"
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	// 1. Check if there are exactly 2 arguments
+	args := os.Args[1:]
+	if len(args) != 2 {
+		return
+	}
+
+	str1 := args[0]
+	str2 := args[1]
+
+	// 2. Map to keep track of characters we already printed
+	seen := make(map[rune]bool)
+
+	// 3. Loop through the first string
+	for _, char1 := range str1 {
+		
+		// Only proceed if we haven't printed this char before
+		if !seen[char1] {
+			
+			// 4. Check if char1 exists anywhere in the second string
+			for _, char2 := range str2 {
+				if char1 == char2 {
+					// We found a match! Print it and mark as seen
+					z01.PrintRune(char1)
+					seen[char1] = true
+					break // Stop looking in str2, move to next char in str1
+				}
+			}
+		}
+	}
+	
+	// 5. Always end with a newline
+	z01.PrintRune('\n')
+}
+
+<!-- inter 2 -->
+ package main
+
+import (
+	"os"
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	args := os.Args[1:]
+	if len(args) != 2 {
+		return
+	}
+
+	str1 := args[0]
+	str2 := args[1]
+
+	for i := 0; i < len(str1); i++ {
+		// --- STEP 1: Check if we already handled this character ---
+		alreadyProcessed := false
+		for j := 0; j < i; j++ {
+			if str1[i] == str1[j] {
+				alreadyProcessed = true
+				break
+			}
+		}
+
+		// If it's a duplicate in str1, skip it
+		if alreadyProcessed {
+			continue
+		}
+
+		// --- STEP 2: Check if it exists in the second string ---
+		for k := 0; k < len(str2); k++ {
+			if str1[i] == str2[k] {
+				z01.PrintRune(rune(str1[i]))
+				break // Found it! Stop looking in str2
+			}
+		}
+	}
+	z01.PrintRune('\n')
+}
