@@ -1126,3 +1126,45 @@ func main() {
 
 	return count
 }
+
+<!-- fprime -->
+ package main
+
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
+
+func main() {
+	// 1. Check for exactly 1 argument
+	if len(os.Args) != 2 {
+		return
+	}
+
+	// 2. Convert string to int
+	n, err := strconv.Atoi(os.Args[1])
+	if err != nil || n < 2 {
+		return
+	}
+
+	first := true // To track when to print the '*'
+	divisor := 2
+
+	// 3. The factorization loop
+	for n > 1 {
+		// If n is divisible by the current divisor
+		for n%divisor == 0 {
+			// Print '*' before every factor except the first one
+			if !first {
+				fmt.Print("*")
+			}
+			fmt.Print(divisor)
+			
+			n /= divisor
+			first = false
+		}
+		divisor++
+	}
+	fmt.Println()
+}
